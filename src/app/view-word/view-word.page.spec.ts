@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
-import { ViewMessagePageRoutingModule } from './view-message-routing.module';
-import { ViewMessagePage } from './view-message.page';
+import { ViewMessagePageRoutingModule } from './view-word-routing.module';
+import { ViewMessagePage } from './view-word.page';
 
 describe('ViewMessagePage', () => {
   let component: ViewMessagePage;

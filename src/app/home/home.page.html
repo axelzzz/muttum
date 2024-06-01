@@ -4,6 +4,9 @@
       Inbox
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionChange)="search($event)" animated="true" placeholder="Chercher une définition"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -20,6 +23,6 @@
   </ion-header>
   
   <ion-list>
-    <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
+    <app-word *ngFor="let word of getWords()" [word]="word"></app-word>
   </ion-list>
 </ion-content>
