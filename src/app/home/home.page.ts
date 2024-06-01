@@ -11,7 +11,11 @@ import { DataService, Word } from '../services/data.service';
 })
 export class HomePage {
   private data = inject(DataService);
-  constructor() {}
+  words: Word[] = [];
+
+  constructor() {
+    this.getWords();
+  }
 
   refresh(ev: any) {
     setTimeout(() => {
@@ -19,8 +23,29 @@ export class HomePage {
     }, 3000);
   }
 
-  getWords(): Word[] {
-    return this.data.getWords();
+  getWords(): void {
+    this.data.getWords().then(response => {
+      this.words = this.parseResponse(response);
+      
+    }, function (error) {
+      console.log(error);
+    });
+  }
+  
+  private parseResponse(response: any): Word[] {
+    const resultats = response.documents;
+    const result: Word[] = [];
+    for(let i=0 ; i < resultats.length ; i++) {
+      const resultat = resultats[i];
+      result.push({
+        label: resultat.libelle,
+        type: resultat.type,
+        definition: resultat.definition,
+        id: resultat.$id,
+      } as Word);
+    }
+    
+    return result;
   }
 
   search(input: any) {
