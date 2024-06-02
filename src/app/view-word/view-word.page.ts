@@ -19,11 +19,22 @@ export class ViewWordPage implements OnInit {
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.word = this.data.getWordById(parseInt(id, 10));
+    this.data.getWordById(id).then(response => {
+      this.word = this.parseResponse(response);
+    });
   }
 
   getBackButtonText() {
     const isIos = this.platform.is('ios')
     return isIos ? 'Inbox' : '';
+  }
+
+  private parseResponse(response: any): Word {
+    return {
+      label: response.libelle,
+      type: response.type,
+      definition: response.definition,
+      id: response.$id,
+    } as Word;
   }
 }

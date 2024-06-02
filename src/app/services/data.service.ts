@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Client, Account, Databases, ID, Models, Query} from 'appwrite';
+
+export const client = new Client().setEndpoint('http://localhost/v1')
+    //.setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('66426fca001565f70adf'); // Replace with your project ID
+
+export const account = new Account(client);
+
 
 export interface Word {
   label: string;
   type: string;
-  date: string;
   id: number;
-  read: boolean;
   definition: string;
 }
 
@@ -13,40 +19,25 @@ export interface Word {
   providedIn: 'root'
 })
 export class DataService {
-  public words: Word[] = [
-    {
-      label: 'Word 1',
-      type: 'Noun',
-      date: '9:32 AM',
-      id: 0,
-      read: false,
-      definition: 'No definition saved'
-    },
-    {
-      label: 'Word 2',
-      type: 'Verb',
-      date: '6:12 AM',
-      id: 1,
-      read: false,
-      definition: 'No definition saved'
-    },
-    {
-      label: 'Word 3',
-      type: 'Noun',
-      date: '4:55 AM',
-      id: 2,
-      read: false,
-      definition: 'No definition saved'
-    }
-  ];
 
-  constructor() { }
+  databases = new Databases(client);  
 
-  public getWords(): Word[] {
-    return this.words;
+  constructor() {}
+
+  public getWords(): Promise<any> {
+    return this.databases.listDocuments(
+      'muttum-db',
+      'mot'
+    );
   }
 
-  public getWordById(id: number): Word {
-    return this.words[id];
+  public getWordById(id: string): Promise<any> {
+    return this.databases.getDocument(
+      'muttum-db',
+      'mot',
+      id
+    );
   }
+
+  
 }

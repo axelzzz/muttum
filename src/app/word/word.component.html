@@ -1,10 +1,8 @@
 <ion-item *ngIf="word" [routerLink]="'/word/' + word.id" [detail]="false">
-  <div slot="start" [class]="!word.read ? 'dot dot-unread' : 'dot'"></div>
   <ion-label class="ion-text-wrap">
     <h2>
       {{ word.label }}
       <span class="date">
-        <ion-note>{{ word.date }}</ion-note>
         <ion-icon aria-hidden="true" name="chevron-forward" size="small" *ngIf="isIos()"></ion-icon>
       </span>
     </h2>
