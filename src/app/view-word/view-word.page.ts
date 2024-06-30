@@ -22,6 +22,10 @@ export class ViewWordPage implements OnInit {
     this.data.getWordById(id).then(response => {
       this.word = this.parseResponse(response);
     });
+
+    this.data.getFunction().then(response => {
+      console.log(`reponse: ${response}`);
+    })
   }
 
   getBackButtonText() {
